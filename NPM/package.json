@@ -9,6 +9,7 @@
   "author": "Akash Dsouza",
   "license": "ISC",
   "dependencies": {
+    "mongoose": "^6.8.4",
     "underscore": "^1.13.6"
   }
 }

@@ -8,7 +8,14 @@ const Joi = require("joi");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(morgan("tiny"));
+
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`env: ${app.get("env")}`);
+
+if (app.get("env") === "development") {
+  app.use(morgan("tiny"));
+  console.log("morgan is enabled");
+}
 
 const movies = [
   {
@@ -29,7 +36,7 @@ app.get("/api/movies", (req, res) => {
 
 app.post("/api/movies", (req, res) => {
   const schema = Joi.object({
-    name: Joi.string().min(3).max(15).required(),
+    name: Joi.string().min(3).max(30).required(),
   });
 
   const result = schema.validate(req.body);

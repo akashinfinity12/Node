@@ -3,6 +3,7 @@ const app = express();
 const logger = require("./logger");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const Joi = require("joi");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,6 +25,24 @@ app.use(logger);
 
 app.get("/api/movies", (req, res) => {
   res.send(movies);
+});
+
+app.post("/api/movies", (req, res) => {
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(15).required(),
+  });
+
+  const result = schema.validate(req.body);
+  if (result.error) {
+    return res.status(400).send("Bad Request");
+  } else {
+    const movie = {
+      id: movies.length + 1,
+      name: req.body.name,
+    };
+    movies.push(movie);
+    return res.send(movies);
+  }
 });
 
 const port = process.env.PORT || 3000;

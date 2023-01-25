@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 
 console.log(`App Name: ${config.get("name")}`);
 console.log(`Mail Host Name: ${config.get("mail.host")}`);
+console.log(`Hidden Password: ${config.get("mail.password")}`);
 
 const movies = [
   {

@@ -1,0 +1,6 @@
+{
+  "name":"my-configuration-app-dev",
+  "mail": {
+    "host": "dev-mail-server"
+  }
+}

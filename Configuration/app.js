@@ -3,6 +3,8 @@ const app = express();
 const logger = require("./logger");
 const Joi = require("joi");
 const config = require("config");
+const debug = require("debug")("app:landing");
+const morgan = require("morgan");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -10,6 +12,11 @@ app.use(express.urlencoded({ extended: true }));
 console.log(`App Name: ${config.get("name")}`);
 console.log(`Mail Host Name: ${config.get("mail.host")}`);
 console.log(`Hidden Password: ${config.get("mail.password")}`);
+
+if (app.get("env") === "production") {
+  app.use(morgan("tiny"));
+  debug("Connected to website logging");
+}
 
 const movies = [
   {

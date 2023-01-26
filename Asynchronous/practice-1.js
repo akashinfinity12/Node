@@ -1,15 +1,13 @@
 // Replacing callbacks in callback-concept.js into promises
 
 console.log("Before");
-getUser(1, (item) => {
-  console.log(item);
-  getRepositories(item.name, (e) => {
-    console.log("Repositories: " + e);
-  });
-});
+getUser(1)
+  .then((item) => getRepositories(item.name))
+  .then((item) => console.log(item))
+  .catch((err) => console.log("Error Occured"));
 console.log("After");
 
-function getUser(id, callback) {
+function getUser(id) {
   return new Promise((resolve, request) => {
     setTimeout(() => {
       console.log(`Reading user ${id} data from the database..`);
@@ -22,7 +20,7 @@ function getUser(id, callback) {
   });
 }
 
-function getRepositories(username, callback) {
+function getRepositories(username) {
   return new Promise((resolve, request) => {
     setTimeout(() => {
       console.log(`Fetching ${username}'s repository list..`);

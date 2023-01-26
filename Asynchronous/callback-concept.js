@@ -7,6 +7,8 @@ getUser(1, (item) => {
     console.log("Repositories: " + e);
   });
 });
+// The nested structure, line number 4-9 is sometimes referred to as callback-hell or christmas-tree-problem.
+// This problem can be solved using named functions instead of anonymous functions.
 console.log("After");
 
 function getUser(id, callback) {

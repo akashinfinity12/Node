@@ -8,6 +8,8 @@ const morgan = require("morgan");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.set("view engine", "pug");
+app.set("views", "./views");
 
 console.log(`App Name: ${config.get("name")}`);
 console.log(`Mail Host Name: ${config.get("mail.host")}`);
@@ -30,6 +32,12 @@ const movies = [
 ];
 
 app.use(logger);
+
+app.get("/", (req, res) => {
+  res.render("index.pug", {
+    message: "Hello World. This is PUG usage",
+  });
+});
 
 app.get("/api/movies", (req, res) => {
   res.send(movies);

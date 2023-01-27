@@ -59,7 +59,8 @@ async function run() {
 // run();
 
 async function updateCourse(id) {
-  console.log(id);
+  /*
+  QUERY FIRST AND THEN CHANGE
   const course = await Course.findById(id);
   if (!course) return;
   course.set({
@@ -68,6 +69,24 @@ async function updateCourse(id) {
   });
   const result = await course.save();
   console.log(result);
+  */
+
+  // UPDATE DIRECTLY IN THE DATABASE
+  const result = await Course.updateOne(
+    { _id: id },
+    {
+      $set: {
+        isPublished: true,
+      },
+    }
+  );
+  console.log(result);
+}
+
+async function deleteCourse(id) {
+  const result = await Course.deleteOne({ _id: id });
+  console.log(result);
 }
 
 // updateCourse("5a68fdf95db93f6477053ddd");
+deleteCourse("5a68fdf95db93f6477053ddd");

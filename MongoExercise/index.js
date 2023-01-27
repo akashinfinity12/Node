@@ -56,4 +56,18 @@ async function run() {
   console.log(result);
 }
 
-run();
+// run();
+
+async function updateCourse(id) {
+  console.log(id);
+  const course = await Course.findById(id);
+  if (!course) return;
+  course.set({
+    name: "C Language",
+    author: "Akash",
+  });
+  const result = await course.save();
+  console.log(result);
+}
+
+// updateCourse("5a68fdf95db93f6477053ddd");

@@ -1,38 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const Joi = require("joi");
 const mongoose = require("mongoose");
+const {
+  customerSchema,
+  schemaValidation,
+  putSchemaValidation,
+} = require("../models/customer");
 
-// defining the schema
-const customerSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  phone: { type: String, required: true },
-  isGold: { type: Boolean, required: true },
-});
-
-// creating a collection
 const Customer = mongoose.model("Customer", customerSchema);
 
-// Joi Validation
-function schemaValidation(object) {
-  const schema = Joi.object({
-    name: Joi.string().required(),
-    phone: Joi.string().required().min(10).max(10),
-    isGold: Joi.boolean().required(),
-  });
-  return schema.validate(object);
-}
-
-function putSchemaValidation(object) {
-  const schema = Joi.object({
-    name: Joi.string(),
-    phone: Joi.string().min(10).max(10),
-    isGold: Joi.boolean(),
-  });
-  return schema.validate(object);
-}
-
-// Routes
 router.get("/", async (req, res) => {
   const customers = await Customer.find();
   res.send(customers);

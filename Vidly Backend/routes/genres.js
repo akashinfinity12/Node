@@ -11,12 +11,12 @@ const genreSchema = new mongoose.Schema({
 // create collection
 const Genre = mongoose.model("Genre", genreSchema);
 
-function schemaValidation(name) {
+function schemaValidation(object) {
   const schema = Joi.object({
     name: Joi.string().min(3).max(10).required(),
   });
 
-  return schema.validate(name);
+  return schema.validate(object);
 }
 
 router.get("/", async (req, res) => {

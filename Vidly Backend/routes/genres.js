@@ -34,9 +34,7 @@ router.post("/", async (req, res) => {
   const { error } = schemaValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const genre = new Genre({
-    name: req.body.name,
-  });
+  const genre = new Genre(req.body);
   const result = await genre.save();
   res.send(result);
 });
@@ -48,9 +46,7 @@ router.put("/:id", async (req, res) => {
   const { error } = schemaValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  genreObject.set({
-    name: req.body.name,
-  });
+  genreObject.set(req.body);
   const result = await genreObject.save();
   res.send(result);
 });

@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const genres = require("./routes/genres");
+const customers = require("./routes/customers");
 const mongoose = require("mongoose");
 
 // connection
@@ -12,6 +13,7 @@ mongoose
 
 app.use(express.json());
 app.use("/api/genres", genres);
+app.use("/api/customers", customers);
 
 app.get("/", (req, res) => {
   res.send("Welcome to Vidly Backend Page");

@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
-const { genreSchema, schemaValidation } = require("../models/genre");
-
-const Genre = mongoose.model("Genre", genreSchema);
+const { schemaValidation } = require("../models/genre");
+const { Genre } = require("../models/genre");
 
 router.get("/", async (req, res) => {
   const genres = await Genre.find();
@@ -45,4 +43,5 @@ router.delete("/:id", async (req, res) => {
   res.send(result);
 });
 
+module.exports.Genre = Genre;
 module.exports = router;

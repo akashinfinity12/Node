@@ -6,22 +6,16 @@ const asyncMiddleware = require("../middleware/async");
 const { schemaValidation } = require("../models/genre");
 const { Genre } = require("../models/genre");
 
-router.get(
-  "/",
-  asyncMiddleware(async (req, res) => {
-    const genres = await Genre.find();
-    res.send(genres);
-  })
-);
+router.get("/", async (req, res) => {
+  const genres = await Genre.find();
+  res.send(genres);
+});
 
-router.get(
-  "/:id",
-  asyncMiddleware(async (req, res) => {
-    const genre = await Genre.findById(req.params.id);
-    if (!genre) return res.status(404).send("Genre object not found");
-    res.send(genre);
-  })
-);
+router.get("/:id", async (req, res) => {
+  const genre = await Genre.findById(req.params.id);
+  if (!genre) return res.status(404).send("Genre object not found");
+  res.send(genre);
+});
 
 router.post("/", auth, async (req, res) => {
   const { error } = schemaValidation(req.body);

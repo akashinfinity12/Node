@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
 const { schemaValidation } = require("../models/genre");
 const { Genre } = require("../models/genre");
 
@@ -14,7 +15,7 @@ router.get("/:id", async (req, res) => {
   res.send(genre);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = schemaValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -23,7 +24,7 @@ router.post("/", async (req, res) => {
   res.send(result);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const genreObject = await Genre.findById(req.params.id);
   if (!genreObject) return res.status(404).send("Genre object not found");
 
@@ -35,7 +36,7 @@ router.put("/:id", async (req, res) => {
   res.send(result);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   const genreObject = await Genre.findById(req.params.id);
   if (!genreObject) return res.status(404).send("Genre object not found");
 

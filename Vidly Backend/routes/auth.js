@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
-const _ = require("lodash");
 const { User } = require("../models/user");
 
 function loginSchemaValidate(loginInfo) {

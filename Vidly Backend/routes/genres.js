@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const checkAdmin = require("../middleware/admin");
 const auth = require("../middleware/auth");
 const { schemaValidation } = require("../models/genre");
 const { Genre } = require("../models/genre");
@@ -36,7 +37,7 @@ router.put("/:id", auth, async (req, res) => {
   res.send(result);
 });
 
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id", [auth, checkAdmin], async (req, res) => {
   const genreObject = await Genre.findById(req.params.id);
   if (!genreObject) return res.status(404).send("Genre object not found");
 

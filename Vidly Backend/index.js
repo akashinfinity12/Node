@@ -6,6 +6,7 @@ const movies = require("./routes/movies");
 const rentals = require("./routes/rentals");
 const users = require("./routes/users");
 const auth = require("./routes/auth");
+const error = require("./middleware/error");
 const mongoose = require("mongoose");
 const config = require("config");
 
@@ -21,6 +22,7 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("Error: " + err));
 
+// middleware
 app.use(express.json());
 app.use("/api/genres", genres);
 app.use("/api/customers", customers);
@@ -28,6 +30,7 @@ app.use("/api/movies", movies);
 app.use("/api/rentals", rentals);
 app.use("/api/users", users);
 app.use("/api/auth", auth);
+app.use(error);
 
 app.get("/", (req, res) => {
   res.send("Welcome to Vidly Backend Page");

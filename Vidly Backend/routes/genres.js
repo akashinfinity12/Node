@@ -5,9 +5,13 @@ const auth = require("../middleware/auth");
 const { schemaValidation } = require("../models/genre");
 const { Genre } = require("../models/genre");
 
-router.get("/", async (req, res) => {
-  const genres = await Genre.find();
-  res.send(genres);
+router.get("/", async (req, res, next) => {
+  try {
+    const genres = await Genre.find();
+    res.send(genres);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/:id", async (req, res) => {
